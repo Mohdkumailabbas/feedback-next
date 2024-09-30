@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MessageSchema {
+  id        Int      @id @default(autoincrement()) // Unique ID for each message
+  content   String // Content of the message
+  createdAt DateTime @default(now()) // Timestamp for message creation
+  userId    Int // Foreign key linking message to a user
+
+  // Define the relation between MessageSchema and User
+  user User @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                 Int      @id @default(autoincrement()) // Unique ID for each user
+  username           String   @unique // Unique username for each user
+  email              String // User's email
+  password           String // User's password
+  verifyCode         String // Verification code
+  isVerified         Boolean
+  verifyCodeExpiry   DateTime // Expiry date of the verification code
+  isAcceptingMessage Boolean // Whether the user is accepting messages
+
+  // Array of messages linked to the user
+  messages MessageSchema[]
+}
