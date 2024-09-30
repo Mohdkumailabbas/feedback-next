@@ -42,5 +42,7 @@ package-lock.json
 tsconfig.json
 tailwind.config.ts
 postcss.config.mjs
-next.config.mjsnext-env.d.ts
+next.config.mjs
 .eslintrc.json
+next-env.d.ts
+README.md
